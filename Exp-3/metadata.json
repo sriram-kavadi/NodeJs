@@ -1,0 +1,6 @@
+{
+  "name": "ShopSwift",
+  "description": "A modern, responsive shopping experience with a catalog, cart, and secure auth flows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
