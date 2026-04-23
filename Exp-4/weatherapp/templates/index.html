@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather AI</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            margin:0;
+            font-family:Segoe UI;
+            background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+            color:white;
+            text-align:center;
+        }
+
+        .container {
+            margin-top:50px;
+            backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.1);
+            padding:30px;
+            border-radius:20px;
+            width:400px;
+            margin:auto;
+        }
+
+        input {
+            padding:10px;
+            border-radius:10px;
+            border:none;
+        }
+
+        button {
+            padding:10px;
+            border:none;
+            border-radius:10px;
+            background:cyan;
+            cursor:pointer;
+        }
+
+        .card {
+            background:rgba(0,0,0,0.3);
+            margin:10px;
+            padding:10px;
+            border-radius:10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🌌 Weather AI</h1>
+
+    <!-- Voice search -->
+    <input id="city" placeholder="Enter city">
+    <button onclick="searchWeather()">Search</button>
+    <button onclick="startVoice()">🎤</button>
+
+    <form method="post" id="form">
+        {% csrf_token %}
+        <input type="hidden" name="city" id="hiddenCity">
+    </form>
+
+    {% if city %}
+        <h2>{{city}}</h2>
+
+        <img src="http://openweathermap.org/img/w/{{icon}}.png">
+
+        <div class="card">🌡 Temp: {{temp}}°C</div>
+        <div class="card">🤒 Feels Like: {{feels_like}}°C</div>
+        <div class="card">💧 Humidity: {{humidity}}</div>
+        <div class="card">💨 Wind: {{wind}}</div>
+        <div class="card">🌅 Sunrise: {{sunrise}}</div>
+        <div class="card">🌇 Sunset: {{sunset}}</div>
+        <div class="card">🌤 {{description}}</div>
+        <div class="card">🤖 {{suggestion}}</div>
+
+        <canvas id="chart"></canvas>
+    {% endif %}
+</div>
+
+<script>
+function searchWeather(){
+    let city = document.getElementById("city").value;
+    document.getElementById("hiddenCity").value = city;
+    document.getElementById("form").submit();
+}
+
+// 🎤 Voice recognition
+function startVoice(){
+    let recognition = new webkitSpeechRecognition();
+    recognition.onresult = function(event){
+        let text = event.results[0][0].transcript;
+        document.getElementById("city").value = text;
+    }
+    recognition.start();
+}
+
+// Graph
+{% if city %}
+new Chart(document.getElementById("chart"), {
+    type: 'bar',
+    data: {
+        labels: ['Temp','Humidity','Wind'],
+        datasets: [{
+            label: 'Weather',
+            data: [{{temp}}, {{humidity}}, {{wind}}],
+        }]
+    }
+});
+{% endif %}
+</script>
+
+</body>
+</html>
