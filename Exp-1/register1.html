@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Character Encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Responsive Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Cart - Register</title>
+
+    <!-- Linking External CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVIGATION BAR ================= -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h2>MyShop</h2>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="catalog.html">Catalog</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ================= REGISTRATION FORM SECTION ================= -->
+    <section class="form-section">
+        <div class="form-container">
+            <h2>User Registration</h2>
+
+            <!-- Registration Form -->
+            <form action="#" method="post">
+
+                <!-- Full Name -->
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
+                </div>
+
+                <!-- Gender -->
+                <div class="form-group">
+                    <label>Gender</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="gender" value="male" required> Male
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="female"> Female
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-group">
+                    <button type="submit" class="btn">Register</button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <p>&copy; 2026 MyShop | Web Technology Lab</p>
+    </footer>
+
+</body>
+</html>
