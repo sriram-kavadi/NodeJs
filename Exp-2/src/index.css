@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-bg: #f8fafc;
+  --color-text: #0f172a;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-muted-text: #64748b;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+/* Overwrite Bootstrap Defaults to match Sleek Theme */
+.navbar {
+  height: 64px;
+  background: var(--color-surface) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: 12px !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03) !important;
+}
+
+.btn-primary {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark) !important;
+}
+
+.btn-dark {
+  background-color: var(--color-text) !important;
+  border-color: var(--color-text) !important;
+  border-radius: 8px !important;
+}
+
+.badge-danger {
+  background: #fee2e2 !important;
+  color: #ef4444 !important;
+  font-weight: 700 !important;
+}
+
+.transition-all {
+  transition: all 0.2s ease;
+}
+
+.hover-scale-105:hover {
+  transform: scale(1.05);
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
