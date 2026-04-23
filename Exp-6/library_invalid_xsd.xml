@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================
+  INVALID XML Example 2 — Fails XSD Validation
+  Multiple violations shown (XSD catches specific data types):
+    1. available="maybe"  → not in YesNoType enum (yes|no)
+    2. year = 3500        → exceeds maxInclusive of 2026
+    3. email is malformed → fails email pattern
+    4. zipCode = "ABCDE"  → fails \d{5} zip pattern
+    5. pages = -50        → not a positiveInteger
+  ============================================================
+-->
+
+<library id="LIB-001" name="City Public Library" established="1985">
+  <catalog>
+    <book id="B001" available="maybe" genre="fiction">
+      <!-- ❌ ERROR 1: available="maybe" — only "yes" or "no" allowed -->
+      <title>The Great Gatsby</title>
+      <author>
+        <firstName>F. Scott</firstName>
+        <lastName>Fitzgerald</lastName>
+      </author>
+      <publisher>Scribner</publisher>
+      <year>3500</year>
+      <!-- ❌ ERROR 2: year=3500 exceeds maxInclusive (2026) -->
+      <isbn>978-0-7432-7356-5</isbn>
+      <pages>-50</pages>
+      <!-- ❌ ERROR 3: pages=-50, must be positiveInteger -->
+      <price currency="USD">12.99</price>
+    </book>
+  </catalog>
+  <members>
+    <member id="M001" membershipType="premium" status="active">
+      <name>
+        <firstName>Alice</firstName>
+        <lastName>Johnson</lastName>
+      </name>
+      <email>not-a-valid-email</email>
+      <!-- ❌ ERROR 4: email fails regex pattern -->
+      <phone>+1-555-0101</phone>
+      <address>
+        <street>123 Maple Street</street>
+        <city>Springfield</city>
+        <state>IL</state>
+        <zipCode>ABCDE</zipCode>
+        <!-- ❌ ERROR 5: ZIP must be digits only, e.g., 62701 -->
+        <country>USA</country>
+      </address>
+      <joinDate>2020-03-15</joinDate>
+      <expiryDate>2026-03-15</expiryDate>
+    </member>
+  </members>
+  <loans>
+    <loan id="L001" status="pending">
+      <!-- ❌ ERROR 6: status="pending" not in enum (active|returned|overdue) -->
+      <memberId>M001</memberId>
+      <bookId>B001</bookId>
+      <issueDate>2026-04-01</issueDate>
+      <dueDate>2026-04-15</dueDate>
+      <fine currency="usd">0.00</fine>
+      <!-- ❌ ERROR 7: currency="usd" must be uppercase (CurrencyCodeType: [A-Z]{3}) -->
+    </loan>
+  </loans>
+</library>

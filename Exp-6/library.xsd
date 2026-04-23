@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================
+  XSD: XML Schema Definition for Library Management System
+  File: library.xsd
+  ============================================================
+  XSD is a richer, XML-based alternative to DTD. It supports:
+  - Data types (string, integer, date, decimal...)
+  - Pattern constraints (regex)
+  - Value ranges (minInclusive, maxInclusive)
+  - Namespaces
+  ============================================================
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+
+  <!-- ==================== ROOT: library ==================== -->
+  <xs:element name="library">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="catalog"  type="CatalogType"/>
+        <xs:element name="members"  type="MembersType"/>
+        <xs:element name="loans"    type="LoansType"/>
+      </xs:sequence>
+      <xs:attribute name="id"          type="xs:ID"     use="required"/>
+      <xs:attribute name="name"        type="xs:string" use="required"/>
+      <xs:attribute name="established" type="xs:gYear"  use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- ==================== CATALOG TYPE ==================== -->
+  <xs:complexType name="CatalogType">
+    <xs:sequence>
+      <xs:element name="book" type="BookType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ==================== BOOK TYPE ==================== -->
+  <xs:complexType name="BookType">
+    <xs:sequence>
+      <xs:element name="title"     type="xs:string"/>
+      <xs:element name="author"    type="AuthorType"/>
+      <xs:element name="publisher" type="xs:string"/>
+      <xs:element name="year"      type="PublicationYearType"/>
+      <xs:element name="isbn"      type="ISBNType"/>
+      <xs:element name="pages"     type="PositivePageCount"/>
+      <xs:element name="price"     type="PriceType"/>
+    </xs:sequence>
+    <xs:attribute name="id"        type="xs:ID"           use="required"/>
+    <xs:attribute name="available" type="YesNoType"        use="required"/>
+    <xs:attribute name="genre"     type="GenreType"        use="required"/>
+  </xs:complexType>
+
+  <!-- ==================== AUTHOR TYPE ==================== -->
+  <xs:complexType name="AuthorType">
+    <xs:sequence>
+      <xs:element name="firstName" type="xs:string"/>
+      <xs:element name="lastName"  type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ==================== PRICE TYPE ==================== -->
+  <xs:complexType name="PriceType">
+    <xs:simpleContent>
+      <xs:extension base="xs:decimal">
+        <xs:attribute name="currency" type="CurrencyCodeType" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <!-- ==================== MEMBERS TYPE ==================== -->
+  <xs:complexType name="MembersType">
+    <xs:sequence>
+      <xs:element name="member" type="MemberType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ==================== MEMBER TYPE ==================== -->
+  <xs:complexType name="MemberType">
+    <xs:sequence>
+      <xs:element name="name"       type="PersonNameType"/>
+      <xs:element name="email"      type="EmailType"/>
+      <xs:element name="phone"      type="PhoneType"/>
+      <xs:element name="address"    type="AddressType"/>
+      <xs:element name="joinDate"   type="xs:date"/>
+      <xs:element name="expiryDate" type="xs:date"/>
+    </xs:sequence>
+    <xs:attribute name="id"             type="xs:ID"            use="required"/>
+    <xs:attribute name="membershipType" type="MembershipType"   use="required"/>
+    <xs:attribute name="status"         type="MemberStatusType" use="required"/>
+  </xs:complexType>
+
+  <!-- ==================== ADDRESS TYPE ==================== -->
+  <xs:complexType name="AddressType">
+    <xs:sequence>
+      <xs:element name="street"  type="xs:string"/>
+      <xs:element name="city"    type="xs:string"/>
+      <xs:element name="state"   type="xs:string"/>
+      <xs:element name="zipCode" type="ZipCodeType"/>
+      <xs:element name="country" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ==================== LOANS TYPE ==================== -->
+  <xs:complexType name="LoansType">
+    <xs:sequence>
+      <xs:element name="loan" type="LoanType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ==================== LOAN TYPE ==================== -->
+  <xs:complexType name="LoanType">
+    <xs:sequence>
+      <xs:element name="memberId"   type="xs:string"/>
+      <xs:element name="bookId"     type="xs:string"/>
+      <xs:element name="issueDate"  type="xs:date"/>
+      <xs:element name="dueDate"    type="xs:date"/>
+      <xs:element name="returnDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="fine"       type="FineType"/>
+    </xs:sequence>
+    <xs:attribute name="id"     type="xs:ID"         use="required"/>
+    <xs:attribute name="status" type="LoanStatusType" use="required"/>
+  </xs:complexType>
+
+  <!-- ==================== FINE TYPE ==================== -->
+  <xs:complexType name="FineType">
+    <xs:simpleContent>
+      <xs:extension base="xs:decimal">
+        <xs:attribute name="currency" type="CurrencyCodeType" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <!-- ==================== SHARED NAME TYPE ==================== -->
+  <xs:complexType name="PersonNameType">
+    <xs:sequence>
+      <xs:element name="firstName" type="xs:string"/>
+      <xs:element name="lastName"  type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ==================== SIMPLE TYPES (Constraints) ==================== -->
+
+  <!-- Yes/No enumeration -->
+  <xs:simpleType name="YesNoType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="yes"/>
+      <xs:enumeration value="no"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Book genre enumeration -->
+  <xs:simpleType name="GenreType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="fiction"/>
+      <xs:enumeration value="science"/>
+      <xs:enumeration value="technology"/>
+      <xs:enumeration value="history"/>
+      <xs:enumeration value="biography"/>
+      <xs:enumeration value="other"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Membership type enumeration -->
+  <xs:simpleType name="MembershipType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="premium"/>
+      <xs:enumeration value="standard"/>
+      <xs:enumeration value="student"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Member status enumeration -->
+  <xs:simpleType name="MemberStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="active"/>
+      <xs:enumeration value="inactive"/>
+      <xs:enumeration value="suspended"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Loan status enumeration -->
+  <xs:simpleType name="LoanStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="active"/>
+      <xs:enumeration value="returned"/>
+      <xs:enumeration value="overdue"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Currency code (ISO 4217 pattern: 3 uppercase letters) -->
+  <xs:simpleType name="CurrencyCodeType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z]{3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- ISBN-13 format: xxx-x-xxxx-xxxx-x -->
+  <xs:simpleType name="ISBNType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{3}-\d-\d{4}-\d{4}-\d"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Email format using pattern -->
+  <xs:simpleType name="EmailType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Phone number pattern (e.g., +1-555-0101) -->
+  <xs:simpleType name="PhoneType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\+\d{1,3}-\d{3}-\d{4}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- US Zip Code (5 digits or 5+4) -->
+  <xs:simpleType name="ZipCodeType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{5}(-\d{4})?"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Publication year: between 1000 and current year -->
+  <xs:simpleType name="PublicationYearType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1000"/>
+      <xs:maxInclusive value="2026"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Pages must be a positive integer -->
+  <xs:simpleType name="PositivePageCount">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="10000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

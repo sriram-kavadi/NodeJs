@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================
+  INVALID XML Example 1 — Fails DTD Validation
+  Reason: Missing required <isbn> element inside <book>
+  ============================================================
+-->
+<!DOCTYPE library SYSTEM "library.dtd">
+
+<library id="LIB-001" name="City Public Library" established="1985">
+  <catalog>
+    <book id="B001" available="yes" genre="fiction">
+      <title>The Great Gatsby</title>
+      <author>
+        <firstName>F. Scott</firstName>
+        <lastName>Fitzgerald</lastName>
+      </author>
+      <publisher>Scribner</publisher>
+      <year>1925</year>
+      <!-- ❌ MISSING: <isbn> element — required by DTD -->
+      <pages>180</pages>
+      <price currency="USD">12.99</price>
+    </book>
+  </catalog>
+  <members>
+    <member id="M001" membershipType="premium" status="active">
+      <name>
+        <firstName>Alice</firstName>
+        <lastName>Johnson</lastName>
+      </name>
+      <email>alice@email.com</email>
+      <phone>+1-555-0101</phone>
+      <address>
+        <street>123 Maple Street</street>
+        <city>Springfield</city>
+        <state>IL</state>
+        <zipCode>62701</zipCode>
+        <country>USA</country>
+      </address>
+      <joinDate>2020-03-15</joinDate>
+      <expiryDate>2026-03-15</expiryDate>
+    </member>
+  </members>
+  <loans>
+    <loan id="L001" status="active">
+      <memberId>M001</memberId>
+      <bookId>B001</bookId>
+      <issueDate>2026-04-01</issueDate>
+      <dueDate>2026-04-15</dueDate>
+      <returnDate/>
+      <fine currency="USD">0.00</fine>
+    </loan>
+  </loans>
+</library>

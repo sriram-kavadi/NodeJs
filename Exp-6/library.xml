@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE library SYSTEM "library.dtd">
+
+<!--
+  ============================================================
+  Library Management System - XML Document
+  Scenario: A public library tracking books, members, and loans
+  ============================================================
+-->
+
+<library id="LIB-001" name="City Public Library" established="1985">
+
+  <!-- ========== BOOKS CATALOG ========== -->
+  <catalog>
+
+    <book id="B001" available="yes" genre="fiction">
+      <title>The Great Gatsby</title>
+      <author>
+        <firstName>F. Scott</firstName>
+        <lastName>Fitzgerald</lastName>
+      </author>
+      <publisher>Scribner</publisher>
+      <year>1925</year>
+      <isbn>978-0-7432-7356-5</isbn>
+      <pages>180</pages>
+      <price currency="USD">12.99</price>
+    </book>
+
+    <book id="B002" available="no" genre="science">
+      <title>A Brief History of Time</title>
+      <author>
+        <firstName>Stephen</firstName>
+        <lastName>Hawking</lastName>
+      </author>
+      <publisher>Bantam Books</publisher>
+      <year>1988</year>
+      <isbn>978-0-5538-8016-3</isbn>
+      <pages>212</pages>
+      <price currency="USD">14.99</price>
+    </book>
+
+    <book id="B003" available="yes" genre="technology">
+      <title>Clean Code</title>
+      <author>
+        <firstName>Robert C.</firstName>
+        <lastName>Martin</lastName>
+      </author>
+      <publisher>Prentice Hall</publisher>
+      <year>2008</year>
+      <isbn>978-0-1323-5088-4</isbn>
+      <pages>464</pages>
+      <price currency="USD">35.99</price>
+    </book>
+
+    <book id="B004" available="yes" genre="history">
+      <title>Sapiens: A Brief History of Humankind</title>
+      <author>
+        <firstName>Yuval Noah</firstName>
+        <lastName>Harari</lastName>
+      </author>
+      <publisher>Harper</publisher>
+      <year>2015</year>
+      <isbn>978-0-0623-1609-7</isbn>
+      <pages>443</pages>
+      <price currency="USD">18.00</price>
+    </book>
+
+  </catalog>
+
+  <!-- ========== MEMBERS ========== -->
+  <members>
+
+    <member id="M001" membershipType="premium" status="active">
+      <name>
+        <firstName>Alice</firstName>
+        <lastName>Johnson</lastName>
+      </name>
+      <email>alice.johnson@email.com</email>
+      <phone>+1-555-0101</phone>
+      <address>
+        <street>123 Maple Street</street>
+        <city>Springfield</city>
+        <state>IL</state>
+        <zipCode>62701</zipCode>
+        <country>USA</country>
+      </address>
+      <joinDate>2020-03-15</joinDate>
+      <expiryDate>2026-03-15</expiryDate>
+    </member>
+
+    <member id="M002" membershipType="standard" status="active">
+      <name>
+        <firstName>Bob</firstName>
+        <lastName>Smith</lastName>
+      </name>
+      <email>bob.smith@email.com</email>
+      <phone>+1-555-0202</phone>
+      <address>
+        <street>456 Oak Avenue</street>
+        <city>Springfield</city>
+        <state>IL</state>
+        <zipCode>62702</zipCode>
+        <country>USA</country>
+      </address>
+      <joinDate>2022-07-10</joinDate>
+      <expiryDate>2025-07-10</expiryDate>
+    </member>
+
+    <member id="M003" membershipType="student" status="inactive">
+      <name>
+        <firstName>Clara</firstName>
+        <lastName>Williams</lastName>
+      </name>
+      <email>clara.w@university.edu</email>
+      <phone>+1-555-0303</phone>
+      <address>
+        <street>789 Pine Road</street>
+        <city>Shelbyville</city>
+        <state>IL</state>
+        <zipCode>62565</zipCode>
+        <country>USA</country>
+      </address>
+      <joinDate>2023-01-20</joinDate>
+      <expiryDate>2024-01-20</expiryDate>
+    </member>
+
+  </members>
+
+  <!-- ========== LOAN RECORDS ========== -->
+  <loans>
+
+    <loan id="L001" status="active">
+      <memberId>M001</memberId>
+      <bookId>B002</bookId>
+      <issueDate>2026-04-01</issueDate>
+      <dueDate>2026-04-15</dueDate>
+      <fine currency="USD">0.00</fine>
+    </loan>
+
+    <loan id="L002" status="returned">
+      <memberId>M002</memberId>
+      <bookId>B003</bookId>
+      <issueDate>2026-03-05</issueDate>
+      <dueDate>2026-03-19</dueDate>
+      <returnDate>2026-03-18</returnDate>
+      <fine currency="USD">0.00</fine>
+    </loan>
+
+    <loan id="L003" status="overdue">
+      <memberId>M003</memberId>
+      <bookId>B001</bookId>
+      <issueDate>2026-03-01</issueDate>
+      <dueDate>2026-03-15</dueDate>
+      <fine currency="USD">4.50</fine>
+    </loan>
+
+  </loans>
+
+</library>
